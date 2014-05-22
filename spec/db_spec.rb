@@ -50,6 +50,60 @@ describe 'db' do
         expect(user).to be_a(PL::User)
       end
     end
+
+    describe 'create_user' do
+      it 'adds a user record to db' do
+        user1
+        command = "SELECT * FROM users;"
+        records = db.execute(command)
+        expect(records.size).to eq(1)
+      end
+
+      it 'creates user in db with correct attributes' do
+        user1
+        command = "SELECT * FROM users;"
+        records = db.execute(command)
+        expect(records.first.size).to eq(3)
+        expect(records.first.first).to eq(1)
+        expect(records.first[1]).to eq("user")
+        expect(records.first.last).to eq("abcd")
+      end
+    end
   end
 end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# test

@@ -47,7 +47,14 @@ class PL::DB
     PL::User.new(data)
   end
 
-  def create_user
+  def create_user(data)
+    @db.execute <<-SQL
+    INSERT INTO users (name, password) VALUES ('#{data[:name]}', '#{data[:password]}');
+    SQL
+
+    id = @db.execute("SELECT last_insert_rowid();").first.first
+    data[:id] = id
+    build_user(data)
   end
 
   def get_user
