@@ -209,6 +209,24 @@ describe 'db' do
         expect(result.username).to eq("user1")
       end
     end
+
+    describe 'get_playlist_by_id' do
+      it 'return user object' do
+        playlist1
+        expect(db.get_playlist_by_id(1)).to be_a(PL::Playlist)
+      end
+
+      it 'gets user with correct attributes' do
+        user1
+        playlist1
+        playlist2
+        result = db.get_playlist_by_id(1)
+
+        expect(result.name).to eq("playlist1")
+        expect(result.username).to eq("user1")
+      end
+    end
+
   end
 end
 

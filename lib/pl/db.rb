@@ -124,7 +124,15 @@ class PL::DB
     build_playlist(data)
   end
 
-  def get_playlist_by_id
+  def get_playlist_by_id(id)
+    record = @db.execute <<-SQL
+    SELECT * FROM playlists WHERE id='#{id}';
+    SQL
+    data = {}
+    data[:id] = record.first.first
+    data[:username] = record.first[1]
+    data[:name] = record.first.last
+    build_playlist(data)
   end
 
   def update_playlist
