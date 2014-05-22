@@ -63,6 +63,7 @@ class PL::DB
     record = @db.execute <<-SQL
     SELECT * FROM users WHERE name='#{name}';
     SQL
+    return nil if record.empty?
     data = {}
     data[:id] = record.first.first
     data[:name] = record.first[1]
@@ -74,6 +75,7 @@ class PL::DB
     record = @db.execute <<-SQL
     SELECT * FROM users WHERE id='#{id}';
     SQL
+    return nil if record.empty?
     data = {}
     data[:id] = record.first.first
     data[:name] = record.first[1]
@@ -117,6 +119,7 @@ class PL::DB
     record = @db.execute <<-SQL
     SELECT * FROM playlists WHERE name='#{name}';
     SQL
+    return nil if record.empty?
     data = {}
     data[:id] = record.first.first
     data[:username] = record.first[1]
@@ -128,6 +131,7 @@ class PL::DB
     record = @db.execute <<-SQL
     SELECT * FROM playlists WHERE id='#{id}';
     SQL
+    return nil if record.empty?
     data = {}
     data[:id] = record.first.first
     data[:username] = record.first[1]
@@ -170,6 +174,7 @@ class PL::DB
     record = @db.execute <<-SQL
     SELECT * FROM songs WHERE id='#{id}';
     SQL
+    return nil if record.empty?
     data = {}
     data[:id] = record.first.first
     data[:playlist_id] = record.first[1]
