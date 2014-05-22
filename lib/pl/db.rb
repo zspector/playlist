@@ -18,10 +18,10 @@ class PL::DB
     @db.execute <<-SQL
     CREATE TABLE IF NOT EXISTS playlists(
       id INTEGER,
-      user_id INTEGER,
+      username string,
       name string,
-      FOREIGN KEY ( user_id )
-        REFERENCES users( id ),
+      FOREIGN KEY ( username )
+        REFERENCES users( name ),
       PRIMARY KEY ( id )
       );
     SQL
@@ -58,6 +58,7 @@ class PL::DB
     build_user(data)
   end
 
+  ## can we combine get_user_by_name and get_user_by_id
   def get_user_by_name(name)
     record = @db.execute <<-SQL
     SELECT * FROM users WHERE name='#{name}';
@@ -70,25 +71,60 @@ class PL::DB
   end
 
   def get_user_by_id(id)
+    record = @db.execute <<-SQL
+    SELECT * FROM users WHERE id='#{id}';
+    SQL
+    data = {}
+    data[:id] = record.first.first
+    data[:name] = record.first[1]
+    data[:password] = record.first.last
+    build_user(data)
   end
 
-  def update_user
+  def update_user(data)
+    @db.execute <<-SQL
+    UPDATE users SET password = '#{data[:password]}' WHERE name = '#{data[:name]}'
+    SQL
+
+    get_user_by_name(data[:name])
   end
 
-  def delete_user
+  def delete_user(name)
+    @db.execute <<-SQL
+    DELETE FROM users WHERE name = '#{name}';
+    SQL
   end
 
   ###############
   ## Playlists ##
   ###############
 
-  def build_playlist
+  def build_playlist(data)
+    PL::Playlist.new(data)
   end
 
-  def create_playlist
+  def create_playlist(data)
+    @db.execute <<-SQL
+    INSERT INTO playlists (name, username) VALUES ('#{data[:name]}', '#{data[:username]}');
+    SQL
+
+    id = @db.execute("SELECT last_insert_rowid();").first.first
+    data[:id] = id
+    build_playlist(data)
   end
 
-  def get_playlist
+  def get_playlist_by_name(name)
+    record = @db.execute <<-SQL
+    SELECT * FROM playlists WHERE name='#{name}';
+    SQL
+    data = {}
+    data[:id] = record.first.first
+    data[:username] = record.first[1]
+    data[:name] = record.first.last
+    build_playlist(data)
+  end
+
+  def get_playlist_by_id
   end
 
   def update_playlist

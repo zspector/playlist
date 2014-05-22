@@ -1,9 +1,9 @@
 class PL::Playlist
-  attr_reader :id, :user_id
+  attr_reader :id, :username
   attr_accessor :name
-  def intialize(input)
+  def initialize(input)
     @id = input[:id]
-    @user_id = input[:user_id]
+    @username = input[:username]
     @name = input[:name]
   end
 end
