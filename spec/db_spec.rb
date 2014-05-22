@@ -43,6 +43,53 @@ describe 'db' do
     db.create_playlist(data)
   end
 
+  let (:playlist3) do
+    data = {
+      name: "playlist3",
+      username: "user2"
+    }
+    db.create_playlist(data)
+  end
+
+  let(:song1) do
+    data = {
+      playlist_id: 1,
+      artist: "artist1",
+      name: "song1",
+      url: "www.song1.com"
+    }
+    db.create_song(data)
+  end
+
+  let(:song2) do
+    data = {
+      playlist_id: 1,
+      artist: "artist1",
+      name: "song2",
+      url: "www.song2.com"
+    }
+    db.create_song(data)
+  end
+
+  let(:song3) do
+    data = {
+      playlist_id: 2,
+      artist: "artist2",
+      song: "song2",
+      url: "www.song3.com"
+    }
+    db.create_song(data)
+  end
+
+  let(:song4) do
+    data = {
+      playlist_id: 3,
+      artist: "artist3",
+      song: "song4",
+      url: "www.song4.com"
+    }
+    db.create_song(data)
+  end
   it 'exits' do
     expect(DB).to be_a(Class)
     db
@@ -227,6 +274,167 @@ describe 'db' do
       end
     end
 
+    describe 'update playlist' do
+      it 'updates the database record' do
+        user1
+        playlist1
+        playlist2
+        db.update_playlist(id: 1, name: "playlist1", username: "user1")
+        command = "SELECT * FROM playlists WHERE id=1;"
+        records = db.db.execute(command)
+        expect(records.first[1]).to eq("user1")
+      end
+
+      it 'returns playlist object with updated attributes' do
+        user1
+        playlist1
+        playlist2
+        result = db.update_playlist(id: 1, name: "playlist", username: "user1")
+
+        expect(result.id).to eq(1)
+        expect(result.name).to eq("playlist")
+        expect(result.username).to eq("user1")
+      end
+    end
+
+    describe 'delete_playlist' do
+      it 'deletes the correct database record' do
+        user1
+        playlist1
+        playlist2
+        command = "SELECT * FROM playlists;"
+        records = db.db.execute(command)
+
+        expect(records.size).to eq(2)
+
+        db.delete_playlist(1)
+        command = "SELECT * FROM playlists;"
+        records = db.db.execute(command)
+
+        expect(records.size).to eq(1)
+        expect(records.first[2]).to eq("playlist2")
+      end
+    end
+  end
+
+  describe 'songs' do
+    describe 'build_song' do
+      it 'should build a song object' do
+        song = db.build_song(playlist_id: 1, artist: "artist", name: "user", url: "abcd")
+        expect(song).to be_a(PL::Song)
+      end
+    end
+
+    describe 'create_song' do
+      it 'adds a song record to db' do
+        user1
+        playlist1
+        song1
+        command = "SELECT * FROM songs;"
+        records = db.db.execute(command)
+        expect(records.size).to eq(1)
+      end
+
+      it 'creates song in db with correct attributes' do
+        user1
+        playlist1
+        song1
+        command = "SELECT * FROM songs;"
+        records = db.db.execute(command)
+        expect(records.first.size).to eq(5)
+        expect(records.first.first).to eq(1)
+        expect(records.first[1]).to eq(1)
+        expect(records.first[2]).to eq("artist1")
+        expect(records.first[3]).to eq("song1")
+        expect(records.first.last).to eq("www.song1.com")
+      end
+    end
+
+    describe 'get_song' do
+      it 'return song object' do
+        user1
+        playlist1
+        song1
+        expect(db.get_song(1)).to be_a(PL::Song)
+      end
+
+      it 'gets user with correct attributes' do
+        user1
+        playlist1
+        playlist2
+        playlist3
+        song1
+        song2
+        song3
+        song4
+        result = db.get_song(1)
+
+        expect(result.playlist_id).to eq(1)
+        expect(result.artist).to eq("artist1")
+        expect(result.name).to eq("song1")
+        expect(result.url).to eq("www.song1.com")
+      end
+    end
+
+    describe 'update song' do
+      it 'updates the database record' do
+        user1
+        playlist1
+        playlist2
+        playlist3
+        song1
+        song2
+        song3
+        song4
+        db.update_song(id: 1, playlist_id: 1, artist: "artist", name: "song1", url: "www.song1.com")
+        command = "SELECT * FROM songs WHERE id=1;"
+        records = db.db.execute(command)
+        expect(records.first[2]).to eq("artist")
+      end
+
+      it 'returns playlist object with updated attributes' do
+        user1
+        playlist1
+        playlist2
+        playlist3
+        song1
+        song2
+        song3
+        song4
+        result = db.update_song(id: 1, playlist_id: 1, artist: "artist", name: "song1", url: "www.song.com")
+
+        expect(result.id).to eq(1)
+        expect(result.playlist_id).to eq(1)
+        expect(result.artist).to eq("artist")
+        expect(result.name).to eq("song1")
+        expect(result.url).to eq("www.song.com")
+      end
+    end
+
+    describe 'delete_song' do
+      it 'deletes the correct database record' do
+        user1
+        playlist1
+        playlist2
+        playlist3
+        song1
+        song2
+        song3
+        song4
+        command = "SELECT * FROM songs;"
+        records = db.db.execute(command)
+
+        expect(records.size).to eq(4)
+
+        db.delete_song(1)
+        command = "SELECT * FROM songs;"
+        records = db.db.execute(command)
+
+        expect(records.size).to eq(3)
+        expect(records.first[2]).to eq("artist1")
+        expect(records.first[3]).to eq("song2")
+      end
+    end
   end
 end
 

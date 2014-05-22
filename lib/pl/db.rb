@@ -135,29 +135,65 @@ class PL::DB
     build_playlist(data)
   end
 
-  def update_playlist
+  def update_playlist(data)
+    result = @db.execute <<-SQL
+    UPDATE playlists SET name = '#{data[:name]}' WHERE id = #{data[:id]};
+    SQL
+    get_playlist_by_id(data[:id])
   end
 
-  def delete_playlist
+  def delete_playlist(id)
+    @db.execute <<-SQL
+    DELETE FROM playlists WHERE id = #{id};
+    SQL
   end
 
   ###########
   ## Songs ##
   ###########
 
-  def build_song
+  def build_song(data)
+    PL::Song.new(data)
   end
 
-  def create_song
+  def create_song(data)
+    @db.execute <<-SQL
+    INSERT INTO songs (playlist_id, artist, name, url) VALUES (#{data[:playlist_id]}, '#{data[:artist]}', '#{data[:name]}', '#{data[:url]}');
+    SQL
+
+    id = @db.execute("SELECT last_insert_rowid();").first.first
+    data[:id] = id
+    build_playlist(data)
   end
 
-  def get_song
+  def get_song(id)
+    record = @db.execute <<-SQL
+    SELECT * FROM songs WHERE id='#{id}';
+    SQL
+    data = {}
+    data[:id] = record.first.first
+    data[:playlist_id] = record.first[1]
+    data[:artist] = record.first[2]
+    data[:name] = record.first[3]
+    data[:url] = record.first.last
+    build_song(data)
   end
 
-  def update_song
+  def update_song(data)
+    # .each throug key value pairs of hash
+    data.each do |key, value|
+      result = @db.execute "
+      UPDATE songs SET '#{key.to_s}' = ? WHERE id = ?;
+      ", value, data[:id]
+    end
+
+    get_song(data[:id])
   end
 
-  def delete_song
+  def delete_song(id)
+    @db.execute "
+    DELETE FROM songs WHERE id = ?;
+    ", id
   end
 
   def get_all_tables
