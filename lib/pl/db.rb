@@ -67,7 +67,7 @@ class PL::DB
     data = {}
     data[:id] = record.first.first
     data[:name] = record.first[1]
-    data[:password] = record.first.last
+    data[:password] = record.first.last.to_s
     build_user(data)
   end
 
