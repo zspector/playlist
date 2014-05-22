@@ -38,12 +38,21 @@ describe 'db' do
 
   describe 'users' do
     let (:user1) do
-      {
-        name: "user",
+      data = {
+        name: "user1",
         password: "abcd"
       }
-      db.create_user(user1)
+      db.create_user(data)
     end
+
+    let (:user2) do
+      data = {
+        name: "user2",
+        password: "123"
+      }
+      db.create_user(data)
+    end
+
     describe 'build_user' do
       it 'should build a user object' do
         user = db.build_user(name: "user", password: "abcd")
@@ -55,18 +64,34 @@ describe 'db' do
       it 'adds a user record to db' do
         user1
         command = "SELECT * FROM users;"
-        records = db.execute(command)
+        records = db.db.execute(command)
         expect(records.size).to eq(1)
       end
 
       it 'creates user in db with correct attributes' do
         user1
         command = "SELECT * FROM users;"
-        records = db.execute(command)
+        records = db.db.execute(command)
         expect(records.first.size).to eq(3)
         expect(records.first.first).to eq(1)
-        expect(records.first[1]).to eq("user")
+        expect(records.first[1]).to eq("user1")
         expect(records.first.last).to eq("abcd")
+      end
+    end
+
+    describe 'get_user_by_name' do
+      it 'return user object' do
+        user1
+        expect(db.get_user_by_name("user1")).to be_a(PL::User)
+      end
+
+      it 'gets user with correct attributes' do
+        user1
+        user2
+        result = db.get_user_by_name("user1")
+
+        expect(result.name).to eq("user1")
+        expect(result.password).to eq("abcd")
       end
     end
   end

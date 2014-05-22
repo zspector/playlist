@@ -2,6 +2,7 @@ require 'sqlite3'
 require 'pry-debugger'
 
 class PL::DB
+  attr_reader :db
   def initialize
     @db = SQLite3::Database.new 'test.db'
 
@@ -57,7 +58,18 @@ class PL::DB
     build_user(data)
   end
 
-  def get_user
+  def get_user_by_name(name)
+    record = @db.execute <<-SQL
+    SELECT * FROM users WHERE name='#{name}';
+    SQL
+    data = {}
+    data[:id] = record.first.first
+    data[:name] = record.first[1]
+    data[:password] = record.first.last
+    build_user(data)
+  end
+
+  def get_user_by_id(id)
   end
 
   def update_user
