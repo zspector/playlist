@@ -52,9 +52,10 @@ describe PL::SongCommand do
       songs = PL.db.get_playlist_songs(1)
       expect(songs.size).to eq(2)
       # delete song
-      result = subject.delete(song_id)
+      input1[:id] = songs.first.id
+      result = subject.delete(input1)
       expect(result.success?).to eq(true)
-      songs = PL.db.get_song(playlist_id: 1)
+      songs = PL.db.get_playlist_songs(1)
       expect(songs.size).to eq(1)
     end
 
@@ -66,10 +67,11 @@ describe PL::SongCommand do
       PL::CreatePlaylist.run({username: "user2", name: "playlist1"})
       input1 = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }
       subject.add(input1)
-      result = subject.delete(song_id)
+      input1[:id] = 100
+      result = subject.delete(input1)
       expect(result.success?).to eq(false)
       expect(result.error).to eq(:song_does_not_exist)
-      songs = PL.db.get_song(playlist_id: 1)
+      songs = PL.db.get_playlist_songs(1)
       expect(songs.size).to eq(1)
     end
   end
