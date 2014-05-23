@@ -99,8 +99,9 @@ describe 'db' do
     expect(db).to be_a(DB)
   end
 
-  xit 'has the correct tables' do
-
+  it 'has the correct tables' do
+    tables = db.get_all_tables
+    expect(tables).to include("users", "playlists", "songs")
   end
 
   it 'is a singleton' do
