@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bassClef</title>
+  <link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css">
+</head>
+<body>
+  <div class="row">
+    <div class="small-2 large-2  columns logo">
+      <img src="img/bass-cleff.png" alt="">
+    </div>
+    <div class="small-7 large-7 columns"></div>
+    <div class="small-3 large-3 columns">
+      <p><%= @username %></p>
+      <a class="button" href="/logout" id="log-out">Log out</a>
+    </div>
+  </div>
+  <%= yield %>
+</body>
+</html>
