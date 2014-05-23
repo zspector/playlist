@@ -223,6 +223,22 @@ class PL::DB
     build_song(data)
   end
 
+  def get_playlist_songs(playlist_id)
+    records = @db.execute"
+    SELECT * FROM songs WHERE playlist_id = ?;", playlist_id
+
+      records.map! do |record|
+        x = {}
+        x[:id] = record.first
+        x[:playlist_id] = record[1]
+        x[:artist] = record[2]
+        x[:name] = record[3]
+        x[:url] = record.last
+        build_song(x)
+      end
+      return records
+  end
+
   def update_song(data)
     # .each throug key value pairs of hash
     data.each do |key, value|
