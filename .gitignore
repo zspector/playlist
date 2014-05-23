@@ -1,3 +1,4 @@
 .bundle
 vender/bundle
 .DS_Store
+test.db
