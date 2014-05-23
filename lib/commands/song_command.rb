@@ -1,3 +1,5 @@
+require 'pry-debugger'
+
 module PL
   class SongCommand < Command
     # inputs = { username: "user1",name: "playlist1"}
@@ -35,7 +37,17 @@ module PL
 
     end
 
-    def edit
+    def edit(inputs)
+      # inputs = {id: 1, name: , artist: , etc.}
+      song1 = PL.db.get_song(inputs[:id])
+      return failure(:song_does_not_exist) if song1.nil?
+
+      song2 = PL.db.update_song(inputs)
+
+      return failure(:song_not_updated) if song1.instance_variables != song2.instance_variables
+
+      success(song: song2)
+
     end
 
   end

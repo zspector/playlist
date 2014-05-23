@@ -5,7 +5,7 @@ require 'pry-debugger'
 ## DB ##
 ########
 
-describe 'db' do
+describe 'db', pending:true do
   let(:db) do
     PL.db.reset_tables
     PL.db

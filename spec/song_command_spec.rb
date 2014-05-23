@@ -76,4 +76,36 @@ describe PL::SongCommand do
     end
   end
 
+  describe "edit command" do 
+    it "should update the right song" do
+      PL::CreateUser.run(name: "user1", password: "123")
+      PL::CreateUser.run(name: "user2", password: "123")
+      PL::CreatePlaylist.run({username: "user1", name: "playlist1"})
+      PL::CreatePlaylist.run({username: "user1", name: "playlist2"})
+      PL::CreatePlaylist.run({username: "user2", name: "playlist1"})
+      input1 = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }
+      song1 = subject.add(input1).song
+      # binding.pry
+      input1[:id] = song1.id
+      input1[:name] = "song2"
+      input1[:url] = "www.song2.com"
+      song2 = subject.edit(input1)
+      # song2 = PL.db.update_song(input1)
+      songs = PL.db.get_playlist_songs(1)
+      expect(songs.size).to eq(1)
+      expect(songs.first.name).to eq("song2")
+      expect(songs.first.url).to eq("www.song2.com")
+    end
+    it "should return error if song does not exist" do
+      PL::CreateUser.run(name: "user1", password: "123")
+      PL::CreateUser.run(name: "user2", password: "123")
+      PL::CreatePlaylist.run({username: "user1", name: "playlist1"})
+      PL::CreatePlaylist.run({username: "user1", name: "playlist2"})
+      PL::CreatePlaylist.run({username: "user2", name: "playlist1"})      
+      input1 = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }
+      result = subject.edit(input1)
+      expect(result.success?).to eq(false)
+      expect(result.error).to eq(:song_does_not_exist)
+    end
+  end
 end
