@@ -206,7 +206,7 @@ class PL::DB
 
     id = @db.execute("SELECT last_insert_rowid();").first.first
     data[:id] = id
-    build_playlist(data)
+    build_song(data)
   end
 
   def get_song(id)
