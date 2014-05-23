@@ -417,6 +417,41 @@ describe 'db' do
       end
     end
 
+    describe 'get_playlist_songs' do
+      it 'returns an array of objects' do
+        user1
+        user2
+        playlist1
+        playlist2
+        playlist3
+        song1
+        song2
+        song3
+        song4
+        result = db.get_playlist_songs(1)
+
+        expect(result).to be_a(Array)
+        expect(result.first).to be_a(PL::Song)
+      end
+
+      it 'gets songs only from given playlist' do
+        user1
+        user2
+        playlist1
+        playlist2
+        playlist3
+        song1
+        song2
+        song3
+        song4
+        result = db.get_playlist_songs(1)
+
+        expect(result.length).to eq(2)
+        expect(result.first.name).to eq("song1")
+        expect(result.last.name).to eq("song2")
+      end
+    end
+
     describe 'update song' do
       it 'updates the database record' do
         user1
