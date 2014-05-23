@@ -240,6 +240,46 @@ describe 'db' do
       end
     end
 
+    describe 'get_playlist' do
+      it 'returns a playlist object when given id' do
+        user1
+        playlist1
+        playlist2
+
+        result = db.get_playlist(id: 1)
+
+        expect(result.first).to be_a(PL::Playlist)
+      end
+
+      it 'returns an array of playlist objects when given username' do
+        user1
+        user2
+        playlist1
+        playlist2
+        playlist3
+        result = db.get_playlist(username: "user1")
+
+        expect(result).to be_an(Array)
+        expect(result.length).to eq(2)
+        expect(result.first).to be_a(PL::Playlist)
+        expect(result.last).to be_a(PL::Playlist)
+      end
+
+      it 'returns correct record when given two attributes' do
+        user1
+        user2
+        playlist1
+        playlist2
+        playlist3
+        result = db.get_playlist(username: "user1", name: "playlist1")
+
+        expect(result.length).to eq(1)
+        expect(result.first).to be_a(PL::Playlist)
+        expect(result.first.name).to eq("playlist1")
+        expect(result.first.username).to eq("user1")
+      end
+    end
+
     describe 'get_playlist_by_name' do
       it 'return user object' do
         playlist1

@@ -115,6 +115,45 @@ class PL::DB
     build_playlist(data)
   end
 
+  def get_playlist(data)
+    if data.size == 0
+      return nil
+    elsif data.size == 1
+      records = []
+      data.each do |key, value|
+        records = @db.execute"
+        SELECT * FROM playlists WHERE #{key.to_s} = ?", value
+        return nil if records.empty?
+
+        records.map! do |record|
+          x = {}
+          x[:id] = record.first
+          x[:username] = record[1]
+          x[:name] = record.last
+          build_playlist(x)
+        end
+        return records
+      end
+    elsif data.size == 2
+      records = []
+      keys = data.keys
+      values = data.values
+      records = @db.execute "
+      SELECT * FROM playlists WHERE #{keys[0]} = '#{values[0]}' AND #{keys[1]} = '#{values[1]}';"
+      return nil if records.empty?
+      records.map! do |record|
+        x = {}
+        x[:id] = record.first
+        x[:username] = record[1]
+        x[:name] = record.last
+        build_playlist(x)
+      end
+      return records
+    else
+      return nil
+    end
+  end
+
   def get_playlist_by_name(name)
     record = @db.execute <<-SQL
     SELECT * FROM playlists WHERE name='#{name}';
