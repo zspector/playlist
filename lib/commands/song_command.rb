@@ -23,11 +23,19 @@ module PL
       success(:song => song)
     end
 
-    def self.delete
-      
+    def self.delete(inputs)
+      # inputs = {song_id: 1}
+      song = PL.db.get_song(id: inputs[:song_id])
+      return failure(:song_does_not_exist) if song.nil?
+
+      PL.db.delete_song(inputs[:song_id])
+
+      success()
+
     end
 
     def self.edit
     end
+    
   end
 end

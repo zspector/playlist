@@ -38,4 +38,40 @@ describe PL::SongCommand do
     end
   end
 
+  describe "delete command" do 
+    it "should delete the right song" do
+      PL::CreateUser.run(name: "user1", password: "123")
+      PL::CreateUser.run(name: "user2", password: "123")
+      PL::CreatePlaylist.run({username: "user1", name: "playlist1"})
+      PL::CreatePlaylist.run({username: "user1", name: "playlist2"})
+      PL::CreatePlaylist.run({username: "user2", name: "playlist1"})
+      input1 = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }
+      input2 = { playlist_id: 1, name: "song2", artist: "artist1", url: "www.song2.com" }
+      subject.add(input1)
+      subject.add(input2)
+      songs = PL.db.get_playlist_songs(1)
+      expect(songs.size).to eq(2)
+      # delete song
+      result = subject.delete(song_id)
+      expect(result.success?).to eq(true)
+      songs = PL.db.get_song(playlist_id: 1)
+      expect(songs.size).to eq(1)
+    end
+
+    it "should return error if song not found" do
+      PL::CreateUser.run(name: "user1", password: "123")
+      PL::CreateUser.run(name: "user2", password: "123")
+      PL::CreatePlaylist.run({username: "user1", name: "playlist1"})
+      PL::CreatePlaylist.run({username: "user1", name: "playlist2"})
+      PL::CreatePlaylist.run({username: "user2", name: "playlist1"})
+      input1 = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }
+      subject.add(input1)
+      result = subject.delete(song_id)
+      expect(result.success?).to eq(false)
+      expect(result.error).to eq(:song_does_not_exist)
+      songs = PL.db.get_song(playlist_id: 1)
+      expect(songs.size).to eq(1)
+    end
+  end
+
 end
