@@ -7,7 +7,12 @@ set :bind, '0.0.0.0'
 enable :sessions
 
 get '/' do
-  erb :login
+  if session[:logged_in] == true
+    @playlists = PL::ShowPlaylists.run(username: session[:username]).playlists
+    erb :homepage, :layout => :layout_logged_in
+  else
+    erb :login
+  end
 end
 
 post '/' do
@@ -22,9 +27,11 @@ post '/' do
     session[:username] = @username
     session[:password] = @password
     @playlists = PL::ShowPlaylists.run(username: @username).playlists
+    binding.pry
     erb :homepage, :layout => :layout_logged_in
   end
 end
+
 
 get '/signup' do
   erb :signup
@@ -47,6 +54,15 @@ post '/signup' do
     # posts success message here
     # creates button to complete login, redirects to homepage with session active
   end
+end
+
+get '/create_playlist' do
+  erb :create_playlist
+end
+
+post '/create_playlist' do
+  PL::CreatePlaylist.run(username: session[:username], name: params[:new_playlist])
+  redirect to('/')
 end
 
 get '/logout' do

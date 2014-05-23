@@ -1,16 +1,15 @@
 
-<div class="row" style="width:100%;">
-  <div class="small-6 large-6 small-centered large-centered columns">
-    <button id="add-playlist" value="plus-sing">+</button>
-    <h4>Create New Playlist</h4>
-  </div>
-</div>
 <div class="row">
   <div class="small-6 large-6 small-centered large-centered columns">
+    <a class="button" href="/create_playlist" id="add-playlist" value="plus-sign">+</a>
+    <h4>Create New Playlist</h4>
+  </div>
+  <div class="small-6 large-6 small-centered large-centered columns">
     <ul id="playlists">
-      <% if @playlists %>
+      <% if @playlists.nil? %>
+      <% else %>
         <% @playlists.each do |playlist| %>
-          <li><%= @playlist.name %> </li>
+          <li><%= playlist.name %></li>
         <% end %>
       <% end %>
     </ul>

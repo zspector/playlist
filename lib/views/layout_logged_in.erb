@@ -6,13 +6,15 @@
   <link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css">
 </head>
 <body>
-  <div class="row">
+  <div class="small-12 large-12 columns" style="width:100%">
     <div class="small-2 large-2  columns logo">
       <img src="img/bass-cleff.png" alt="">
     </div>
-    <div class="small-7 large-7 columns"></div>
-    <div class="small-3 large-3 columns">
-      <p><%= @username %></p>
+    <div class="small-7 large-7 columns">&nbsp</div>
+    <div class="small-2 large-2 columns">
+      <p class="username"><%= @username %></p>
+    </div>
+    <div class="small-1 large-1 columns">
       <a class="button" href="/logout" id="log-out">Log out</a>
     </div>
   </div>
