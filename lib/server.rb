@@ -27,11 +27,35 @@ post '/' do
     session[:username] = @username
     session[:password] = @password
     @playlists = PL::ShowPlaylists.run(username: @username).playlists
-    binding.pry
+    # binding.pry
     erb :homepage, :layout => :layout_logged_in
   end
 end
 
+get '/create_playlist' do
+  erb :create_playlist
+end
+
+post '/create_playlist' do
+  PL::CreatePlaylist.run(username: session[:username], name: params[:new_playlist])
+  redirect to('/')
+end
+
+get '/playlist/:id' do
+  @playlist_id = params[:id]
+  @songs = PL::GetPlaylistSongs.run(playlist_id: params[:id]).songs
+  erb :playlist_songs, :layout => :layout_logged_in
+end
+
+get '/playlist/:id/add_song' do
+  erb :add_song
+end
+
+post '/playlist/:id/add_song' do
+  @playlist_id = params[:id]
+  PL::SongCommands.add(name: params[:name], artist: params[:artist], playlist_id: @playlist_id)
+  redirect to('playlist/:@playlist_id')
+end
 
 get '/signup' do
   erb :signup
@@ -56,14 +80,6 @@ post '/signup' do
   end
 end
 
-get '/create_playlist' do
-  erb :create_playlist
-end
-
-post '/create_playlist' do
-  PL::CreatePlaylist.run(username: session[:username], name: params[:new_playlist])
-  redirect to('/')
-end
 
 get '/logout' do
   session.clear

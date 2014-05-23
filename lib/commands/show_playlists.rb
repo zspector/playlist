@@ -6,7 +6,7 @@ module PL
     def run(inputs)
 
       user = PL.db.get_user_by_name(inputs[:username])
-      binding.pry
+      # binding.pry
       return failure(:user_does_not_exist) if user.nil?
 
       playlists = PL.db.get_playlist(inputs)
