@@ -12,11 +12,11 @@ describe PL::GetPlaylistSongs do
     PL::CreatePlaylist.run({username: "user1", name: "playlist1"})
     PL::CreatePlaylist.run({username: "user1", name: "playlist2"})
     PL::CreatePlaylist.run({username: "user2", name: "playlist1"})
-    binding.pry
+    # binding.pry
     PL::SongCommand.add(name: "song1", artist: "artist1", url: "www.song1.com", playlist_id: 1)
     PL::SongCommand.add(name: "song2", artist: "artist1", url: "www.song2.com", playlist_id: 1)
     PL::SongCommand.add(name: "song3", artist: "artist1", url: "www.song3.com", playlist_id: 2)
-    
+
     inputs = {playlist_id: 1}
     result = subject.run(inputs)
 
@@ -29,7 +29,7 @@ describe PL::GetPlaylistSongs do
     expect(result.songs.last.name).to eq("song2")
   end
 
-  it "should return failure if playlist does not exist" do 
+  it "should return failure if playlist does not exist" do
     inputs = {playlist_id: 1}
     result = subject.run(inputs)
     expect(result.success?).to eq(false)
