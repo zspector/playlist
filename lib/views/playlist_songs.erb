@@ -1,13 +1,16 @@
 <div class="row">
   <div class="small-6 large-6 small-centered large-centered columns">
-    <a class="button" href="playlist/<%= @playlist_id %>/add_song" id="add-song">Add Song</a>
+    <a class="button" href="/playlist/<%= @playlist_id %>/add_song" id="add-song">Add Song</a>
+    <a class="button" href="/playlist/<%= @playlist_id %>/edit_song" id="edit-song">
+    <a class="button" href="/playlist/<%= @playlist_id %>/delete_song" id="delete-song">
   </div>
   <div class="small-6 large-6 small-centered large-centered columns">
     <ul id="playlists">
       <% if @songs.nil? %>
       <% else %>
         <% @songs.each do |song| %>
-          <li><a href="<%= song.url %>" target="_blank"><%= song.artist %> - <%= song.name %><a></li>
+          <li><a href="<%= song.url %>" target="_blank"><%= song.artist %> -
+          <%= song.name %></a></li>
         <% end %>
       <% end %>
     </ul>

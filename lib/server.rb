@@ -48,13 +48,14 @@ get '/playlist/:id' do
 end
 
 get '/playlist/:id/add_song' do
+  @playlist_id = params[:id]
   erb :add_song
 end
 
 post '/playlist/:id/add_song' do
   @playlist_id = params[:id]
-  PL::SongCommands.add(name: params[:name], artist: params[:artist], playlist_id: @playlist_id)
-  redirect to('playlist/:@playlist_id')
+  PL::SongCommand.add(name: params[:song_title], artist: params[:artist], playlist_id: @playlist_id, url: params[:url])
+  redirect to("playlist/#{@playlist_id}")
 end
 
 get '/signup' do
