@@ -47,9 +47,28 @@ get '/playlist/:id' do
   erb :playlist_songs, :layout => :layout_logged_in
 end
 
-get '/playlist/:id/add_song' do
+get '/playlist/:id/edit' do
   @playlist_id = params[:id]
-  erb :add_song
+  @playlist = PL::ModifyPlaylist.get(id: @playlist_id).playlist
+  erb :edit_playlist, :layout => :layout_logged_in
+end
+
+post '/playlist/:id/edit' do
+  @playlist_id = params[:id]
+  @playlist = PL::ModifyPlaylist.edit(username: session[:username], id: @playlist_id, name: params[:name]).playlist
+  redirect to('/')
+end
+
+get '/playlist/:id/delete' do
+  @playlist_id = params[:id]
+  @playlist = PL::ModifyPlaylist.get(id: @playlist_id.to_i).playlist
+  erb :delete_playlist
+end
+
+post '/playlist/:id/delete' do
+  @playlist_id = params[:id]
+  @playlist = PL::ModifyPlaylist.delete(username: session[:username], id: @playlist_id.to_i)
+  redirect to('/')
 end
 
 post '/playlist/:id/add_song' do
@@ -61,7 +80,7 @@ end
 get '/playlist/:id/edit_song/:song_id' do
   @playlist_id = params[:id]
   @song = PL::SongCommand.get(id: params[:song_id].to_i).song
-  erb :edit_song
+  erb :edit_song, :layout => :layout_logged_in
 end
 
 post '/playlist/:id/edit_song/:song_id' do

@@ -2,8 +2,8 @@ module PL
   class ModifyPlaylist < Command
 
     def get(inputs)
-      playlists = PL.db.get_playlist_by_id(inputs[:id])
-      return failure(:playlist_not_found) if playlists.nil?
+      playlist = PL.db.get_playlist_by_id(inputs[:id])
+      return failure(:playlist_not_found) if playlist.nil?
 
       success(:playlist => playlist)
     end

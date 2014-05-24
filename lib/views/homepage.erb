@@ -9,7 +9,7 @@
       <% if @playlists.nil? %>
       <% else %>
         <% @playlists.each do |playlist| %>
-          <li><a href="/playlist/<%= playlist.id %>"><%= playlist.name %><a></li>
+          <li><a href="/playlist/<%= playlist.id %>"><%= playlist.name %><a> <a href="/playlist/<%=playlist.id%>/edit">Edit</a> <a href="/playlist/<%=playlist.id%>/delete">Delete</a></li>
         <% end %>
       <% end %>
     </ul>
