@@ -43,6 +43,7 @@ end
 
 get '/playlist/:id' do
   @playlist_id = params[:id]
+  @playlist = PL::ModifyPlaylist.get(id: @playlist_id).playlist
   @songs = PL::GetPlaylistSongs.run(playlist_id: params[:id]).songs
   erb :playlist_songs, :layout => :layout_logged_in
 end

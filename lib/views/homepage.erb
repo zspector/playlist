@@ -1,9 +1,11 @@
 <div class="row">
   <div class="small-8 large-8 small-centered large-centered columns">
     <div class="small-2 large-2 columns">
-      <a href="/create_playlist" id="add-playlist" value="plus-sign">
-        <i class="add-button foundicon-plus"></i>
-      </a>
+        <div class="add-button-container">
+          <a href="/create_playlist" id="add-playlist" value="plus-sign">
+          <i class="add-button foundicon-plus"></i>
+          </a>
+        </div>
     </div>
     <div class="small-10 large-10 columns">
       <h3 class="playlist-name"><%= session[:username] %>'s Playlists</h3>

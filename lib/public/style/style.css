@@ -1,3 +1,5 @@
+/** { border: 1px solid red;}*/
+
 .add {
   border-radius: 100%;
   width: 3em;
@@ -45,9 +47,16 @@ i {
   color: red;
 }
 
+.add-button-container {
+  /*height: 4em;*/
+  margin-top: 0.3em;
+}
+
 i.add-button {
   color: green;
   font-size: 4em;
+  /*padding-top: 0.2em;*/
+  /*height: 2em;*/
 }
 
 #new_playlist {
