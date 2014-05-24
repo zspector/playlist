@@ -6,8 +6,13 @@ module PL
       self.new.run(input)
     end
 
+
     def self.add(input)
       self.new.add(input)
+    end
+
+    def self.get(input)
+      self.new.get(input)
     end
 
     def self.delete(input)

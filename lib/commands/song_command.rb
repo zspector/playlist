@@ -14,6 +14,12 @@ module PL
 
     #   success(:playlists => playlists)
     # end
+    def get(inputs)
+      song = PL.db.get_song(inputs[:id])
+      return failure(:song_does_not_exist) if song.nil?
+
+      success(:song => song)
+    end
 
     def add(inputs)
       # inputs = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }

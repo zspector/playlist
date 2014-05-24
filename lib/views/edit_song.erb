@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="small-6 large-6 small-centered large-centered columns">
+    <a href="http://www.youtube.com" class="button" target="_blank">YouTube</a>
+    <form method="post" action="/playlist/<%= @playlist_id %>/edit_song/<%= @song.id %>">
+        <div>
+          <label for="song_title">Title: </label>
+          <input type="text" name="song_title" id="song_title" value="<%= @song.name %>">
+        </div>
+        <div>
+          <label for="artitst">Artist: </label>
+          <input type="text" name="artist" id="artist" value="<%= @song.artist %>">
+        </div>
+        <div>
+          <label for="url">URL: </label>
+          <input type="text" name="url" id="url" value="<%= @song.url %>">
+        </div>
+        <button type="submit" id="submit-new-playlist">Edit</button>
+    </form>
+  </div>
+</div>

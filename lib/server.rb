@@ -58,6 +58,29 @@ post '/playlist/:id/add_song' do
   redirect to("playlist/#{@playlist_id}")
 end
 
+get '/playlist/:id/edit_song/:song_id' do
+  @playlist_id = params[:id]
+  @song = PL::SongCommand.get(id: params[:song_id].to_i).song
+  erb :edit_song
+end
+
+post '/playlist/:id/edit_song/:song_id' do
+  @playlist_id = params[:id]
+  PL::SongCommand.edit(id: params[:song_id], name: params[:song_title], artist: params[:artist], playlist_id: @playlist_id, url: params[:url])
+  redirect to("playlist/#{@playlist_id}")
+end
+
+get '/playlist/:id/delete_song/:song_id' do
+  @playlist_id = params[:id]
+  erb :delete_song
+end
+
+post '/playlist/:id/delete_song/:song_id' do
+  @playlist_id = params[:id]
+  PL::SongCommand.delete(name: params[:song_title], artist: params[:artist], playlist_id: @playlist_id, url: params[:url])
+  redirect to("playlist/#{@playlist_id}")
+end
+
 get '/signup' do
   erb :signup
 end

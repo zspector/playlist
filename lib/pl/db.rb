@@ -210,9 +210,10 @@ class PL::DB
   end
 
   def get_song(id)
-    record = @db.execute <<-SQL
-    SELECT * FROM songs WHERE id='#{id}';
-    SQL
+    # binding.pry
+    record = @db.execute "
+    SELECT * FROM songs WHERE id=?;
+    ", id
     return nil if record.empty?
     data = {}
     data[:id] = record.first.first
