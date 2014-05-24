@@ -1,0 +1,26 @@
+.add-button {
+  border-radius: 100%;
+  width: 3em;
+  height: 3em ;
+  margin-top: -1em;
+  text-align: center;
+  color: white;
+  background: green;
+}
+
+.centered-link {
+  font-size: 2em;
+  margin-top: 0.2em;
+}
+
+.playlist-name {
+  font-size: 2em;
+}
+
+.button-container {
+  height: 3em;
+}
+
+.edit-button {
+  /*color: yellow;*/
+}

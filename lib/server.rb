@@ -62,7 +62,7 @@ end
 get '/playlist/:id/delete' do
   @playlist_id = params[:id]
   @playlist = PL::ModifyPlaylist.get(id: @playlist_id.to_i).playlist
-  erb :delete_playlist
+  erb :delete_playlist, :layout => :layout_logged_in
 end
 
 post '/playlist/:id/delete' do
@@ -73,7 +73,7 @@ end
 
 get '/playlist/:id/add_song' do
   @playlist_id = params[:id]
-  erb :add_song
+  erb :add_song, :layout => :layout_logged_in
 end
 
 post '/playlist/:id/add_song' do
@@ -97,7 +97,7 @@ end
 get '/playlist/:id/delete_song/:song_id' do
   @playlist_id = params[:id]
   @song = PL::SongCommand.get(id: params[:song_id].to_i).song
-  erb :delete_song
+  erb :delete_song, :layout => :layout_logged_in
 end
 
 post '/playlist/:id/delete_song/:song_id' do

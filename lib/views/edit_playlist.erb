@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="small-6 large-6 small-centered large-centered columns">
+    <form method="post" action="/playlist/<%= @playlist_id %>/edit">
+        <div>
+          <label for="name">Name: </label>
+          <input type="text" name="name" id="name" value="<%= @playlist.name %>">
+        </div>
+        <button type="submit" id="submit-new-playlist">Edit</button>
+    </form>
+  </div>
+</div>
