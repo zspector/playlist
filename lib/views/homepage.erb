@@ -1,25 +1,29 @@
 <div class="row">
-  <div class="small-6 large-6 small-centered large-centered columns">
-    <div class="small-2 large-2 columns button-container">
+  <div class="small-8 large-8 small-centered large-centered columns">
+    <div class="small-2 large-2 columns">
       <a href="/create_playlist" id="add-playlist" value="plus-sign">
-        <div class="add-button">
-          <div class="centered-link">+</div>
-        </div>
+        <i class="add-button foundicon-plus"></i>
       </a>
     </div>
     <div class="small-10 large-10 columns">
-      <h3 class="playlist-name">Playlist</h3>
+      <h3 class="playlist-name"><%= session[:username] %>'s Playlists</h3>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="small-6 large-6 small-centered large-centered columns">
-    <ul id="playlists">
       <% if @playlists.nil? %>
       <% else %>
       <% @playlists.each do |playlist| %>
-      <li><a href="/playlist/<%= playlist.id %>"><%= playlist.name %><a> <a href="/playlist/<%=playlist.id%>/edit"><i class="edit-button foundicon-edit"></i></a> <a href="/playlist/<%=playlist.id%>/delete">Delete</a></li>
+      <div class="small-12 large-12 columns">
+        <div class="small-10 large-10 columns playlist-title">
+          <a class="playlist-list" href="/playlist/<%= playlist.id %>"><%= playlist.name %><a>
+        </div>
+        <div class="small-2 large-2 columns update-buttons">
+          <a href="/playlist/<%=playlist.id%>/edit"><i class="edit-button foundicon-edit"></i></a> <a href="/playlist/<%=playlist.id%>/delete"><i class="delete-button foundicon-minus"></i></a>
+        </div>
+      </div>
       <% end %>
       <% end %>
     </ul>

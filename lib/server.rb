@@ -33,7 +33,7 @@ post '/' do
 end
 
 get '/create_playlist' do
-  erb :create_playlist
+  erb :create_playlist, :layout => :layout_logged_in
 end
 
 post '/create_playlist' do

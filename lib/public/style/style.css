@@ -1,11 +1,15 @@
-.add-button {
+.add {
   border-radius: 100%;
   width: 3em;
   height: 3em ;
   margin-top: -1em;
   text-align: center;
-  color: white;
+  color: green;
   background: green;
+}
+
+i {
+  margin-top: 0.2em
 }
 
 .centered-link {
@@ -14,13 +18,39 @@
 }
 
 .playlist-name {
-  font-size: 2em;
+  font-size: 3em;
 }
 
-.button-container {
+.playlist-list {
+  font-size: 2em;
+}
+/*.button-container {
   height: 3em;
+}*/
+
+.playlist-title {
+  float: left;
+}
+
+.update-buttons {
+  /*float: right;*/
+  padding: 0 0px;
 }
 
 .edit-button {
   /*color: yellow;*/
+}
+
+.delete-button {
+  color: red;
+}
+
+i.add-button {
+  color: green;
+  font-size: 4em;
+}
+
+#new_playlist {
+  height: 3.0em;
+  font-size: 1.1em;
 }
