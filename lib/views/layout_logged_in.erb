@@ -15,12 +15,11 @@
     <div class="small-2 large-2 columns logo">
       <a href="/"><img src="/img/bass-cleff.png" width="55"></a>
     </div>
-    <!-- <div class="small-2 large-2 columns">
-      <a href="/" class="button">Playlists</a>
-    </div> -->
-    <div class="small-6 large-6 columns">&nbsp</div>
-    <div class="small-2 large-2 columns">
-      <p class="username"><%= session[:username] %></p>
+    <div class="small-7 large-7 columns">&nbsp</div>
+    <div class="small-1 large-1 columns">
+      <a href="/">
+      <img class="gravatar th" src="<%= session[:gravatar] %>">
+      </a>
     </div>
     <div class="small-2 large-2 columns">
       <a class="button" href="/logout" id="log-out">Log out</a>

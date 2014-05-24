@@ -1,4 +1,4 @@
-* { border: 1px solid red;}
+/** { border: 1px solid red;}*/
 
 .add {
   border-radius: 100%;
@@ -66,4 +66,8 @@ i.add-button {
 
 .username {
   font-size: 2.0em;
+}
+
+.gravatar {
+  /*border: ;*/
 }

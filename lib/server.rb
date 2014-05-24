@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'pry-debugger'
+require 'digest/md5'
+
 require_relative 'pl.rb'
 
 set :bind, '0.0.0.0'
@@ -26,6 +28,8 @@ post '/' do
     session[:logged_in] = true
     session[:username] = @username
     session[:password] = @password
+    session[:gravatar] = gravatar_url_for(@username, 48)
+    session[:user_handle] = get_handle_from_email(@username)
     @playlists = PL::ShowPlaylists.run(username: @username).playlists
     # binding.pry
     erb :homepage, :layout => :layout_logged_in
@@ -134,4 +138,14 @@ end
 get '/logout' do
   session.clear
   redirect to('/')
+end
+
+def gravatar_url_for(email, size=48)
+  # binding.pry
+  hash = Digest::MD5.hexdigest(email)
+  "http://gravatar.com/avatar/#{hash}?s=#{size}"
+end
+
+def get_handle_from_email(email)
+  /[^@]+/.match(email).to_s
 end
