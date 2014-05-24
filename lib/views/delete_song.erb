@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="small-6 large-6 small-centered large-centered columns">
+    <h2>Are you sure?</h2>
+      <a href="/playlist/<%= @playlist_id %>" class="button" id="back">Go Back</a>
+    <form method="post" action="/playlist/<%= @playlist_id %>/delete_song/<%= @song.id %>">
+        <button type="submit" name="delete_song" id="delete_song" value="Delete">Delete</button>
+    </form>
+  </div>
+</div>

@@ -72,12 +72,13 @@ end
 
 get '/playlist/:id/delete_song/:song_id' do
   @playlist_id = params[:id]
+  @song = PL::SongCommand.get(id: params[:song_id].to_i).song
   erb :delete_song
 end
 
 post '/playlist/:id/delete_song/:song_id' do
   @playlist_id = params[:id]
-  PL::SongCommand.delete(name: params[:song_title], artist: params[:artist], playlist_id: @playlist_id, url: params[:url])
+  PL::SongCommand.delete(id: params[:song_id].to_i)
   redirect to("playlist/#{@playlist_id}")
 end
 
