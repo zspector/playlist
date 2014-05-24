@@ -71,6 +71,11 @@ post '/playlist/:id/delete' do
   redirect to('/')
 end
 
+get '/playlist/:id/add_song' do
+  @playlist_id = params[:id]
+  erb :add_song
+end
+
 post '/playlist/:id/add_song' do
   @playlist_id = params[:id]
   PL::SongCommand.add(name: params[:song_title], artist: params[:artist], playlist_id: @playlist_id, url: params[:url])
