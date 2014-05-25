@@ -128,6 +128,8 @@ post '/signup' do
     session[:logged_in] = true
     session[:username] = @username
     session[:password] = @password
+    session[:gravatar] = gravatar_url_for(@username, 48)
+    session[:user_handle] = get_handle_from_email(@username)
     erb :signup_success
     # posts success message here
     # creates button to complete login, redirects to homepage with session active
@@ -148,4 +150,8 @@ end
 
 def get_handle_from_email(email)
   /[^@]+/.match(email).to_s
+end
+
+def get_embed_code(url)
+  /[=](.*)/.match(url)[1]
 end

@@ -1,15 +1,18 @@
 <div class="row">
   <div class="small-8 large-8 small-centered large-centered columns">
     <div class="small-2 large-2 columns">
-        <div class="add-button-container">
+        <div class="add-playlist-container">
           <a href="/create_playlist" id="add-playlist" value="plus-sign">
           <i class="add-button foundicon-plus"></i>
           </a>
         </div>
     </div>
-    <div class="small-10 large-10 columns">
-      <h3 class="playlist-name"><%= session[:user_handle] %>'s Playlists</h3>
+    <div class="small-9 large-9 columns playlist-name-container">
+      <div class="playlist-name-container">
+        <h3 class="playlist-name"><%= session[:user_handle] %>'s Playlists</h3>
+      </div>
     </div>
+    <div class="small-1 large-1 conlumns">&nbsp</div>
   </div>
 </div>
 
@@ -19,7 +22,7 @@
       <% else %>
       <% @playlists.each do |playlist| %>
       <div class="small-12 large-12 columns">
-        <div class="small-10 large-10 columns playlist-title">
+        <div class="small-9 large-9 columns playlist-title">
           <a class="playlist-list" href="/playlist/<%= playlist.id %>"><%= playlist.name %><a>
         </div>
         <div class="small-2 large-2 columns update-buttons">

@@ -1,4 +1,4 @@
-/** { border: 1px solid red;}*/
+/** { outline: 1px solid red;}*/
 
 .add {
   border-radius: 100%;
@@ -19,8 +19,18 @@ i {
   margin-top: 0.2em;
 }
 
+.add-playlist-container {
+  margin-top: 25%;
+  margin-left: 57%;
+}
+
+.playlist-name-container {
+  margin-right: 1%;
+}
+
 .playlist-name {
   font-size: 3em;
+  /*margin-right: 3%;*/
 }
 
 .playlist-list {
@@ -31,7 +41,12 @@ i {
 }*/
 
 .playlist-title {
-  float: left;
+  /*float: left;*/
+  margin-left: 2%;
+}
+
+.playlist-row {
+  /*border-bottom: 1px solid black;*/
 }
 
 .update-buttons {
@@ -49,19 +64,55 @@ i {
 
 .add-button-container {
   /*height: 4em;*/
-  margin-top: 0.3em;
+  /*margin-top: 0.3em;*/
+  margin-left: 88%;
+  margin-top: 17%;
 }
 
 i.add-button {
   color: green;
-  font-size: 4em;
+  font-size: 2.5em;
+
   /*padding-top: 0.2em;*/
   /*height: 2em;*/
+}
+.song-list-title {
+  margin-right: 4.5%;
 }
 
 #new_playlist {
   height: 3.0em;
   font-size: 1.1em;
+}
+
+.song-info {
+  margin-right: 5%;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.song-name {
+  font-size: 2em;
+}
+
+.artist-name {
+  font-style: italic;
 }
 
 .username {
