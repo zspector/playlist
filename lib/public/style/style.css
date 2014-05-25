@@ -1,4 +1,44 @@
+
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400);
 /** { outline: 1px solid red;}*/
+body{
+  font-family: Lato:;
+  font-weight: 100;
+}
+
+.topbar {
+  border-bottom:1px solid #dadada;
+  width: 100%;
+  height: 66px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 1000;
+}
+
+.content {
+  margin-top: 66px;
+}
+
+.logo {
+  float: left;
+  margin: 5px 0 0 30px;
+}
+
+.topbar-button-container {
+  float: right;
+}
+
+.gravatar {
+  margin-top: 5px;
+}
+
+.logout {
+  height: 56px;
+  width: auto;
+  margin-right: 30px;
+}
 
 .add {
   border-radius: 100%;
@@ -30,6 +70,8 @@ i {
 
 .playlist-name {
   font-size: 3em;
+  font-family: Lato;
+  font-weight: 300;
   /*margin-right: 3%;*/
 }
 
