@@ -21,12 +21,14 @@
       <% if @playlists.nil? %>
       <% else %>
       <% @playlists.each do |playlist| %>
-      <div class="small-12 large-12 columns">
+      <div class="small-12 large-12 columns item-hover">
         <div class="small-9 large-9 columns playlist-title">
           <a class="playlist-list" href="/playlist/<%= playlist.id %>"><%= playlist.name %><a>
         </div>
         <div class="small-2 large-2 columns update-buttons">
-          <a href="/playlist/<%=playlist.id%>/edit"><i class="edit-button foundicon-edit"></i></a> <a href="/playlist/<%=playlist.id%>/delete"><i class="delete-button foundicon-minus"></i></a>
+          <div class="update-button-container">
+            <a href="/playlist/<%=playlist.id%>/edit"><i class="edit-button foundicon-edit"></i></a> <a href="/playlist/<%=playlist.id%>/delete"><i class="delete-button foundicon-minus"></i></a>
+          </div>
         </div>
       </div>
       <% end %>

@@ -42,7 +42,7 @@ i {
 
 .playlist-title {
   /*float: left;*/
-  margin-left: 2%;
+  margin-left: 5%;
 }
 
 .playlist-row {
@@ -52,6 +52,10 @@ i {
 .update-buttons {
   /*float: right;*/
   padding: 0 0px;
+}
+
+.update-button-container {
+  margin-top: 12%;
 }
 
 .edit-button {
@@ -121,4 +125,13 @@ i.add-button {
 
 .gravatar {
   /*border: ;*/
+}
+
+.item-hover {
+  padding: 2% 0;
+  border-radius: 2px;
+}
+
+.hover {
+  background: #dadada;
 }
