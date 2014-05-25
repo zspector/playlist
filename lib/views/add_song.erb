@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="small-6 large-6 small-centered large-centered columns">
-    <a href="http://www.youtube.com/" class="button" target="_blank">YouTube</a>
+  <div class="small-6 large-6 small-centered large-centered columns form-margin">
     <form data-abide method="post" action="/playlist/<%= @playlist_id %>/add_song">
         <input type="text" name="artist" id="artist" placeholder="Artist">
         <input type="text" name="song_title" id="song_title" placeholder="Song title">
         <input type="url" required name="url" id="url" placeholder="Enter URL">
         <button type="submit" id="submit-new-playlist">Create</button>
+        <a href="http://www.youtube.com/" class="button youtube-search" target="_blank">Search YouTube</a>
+        <a class="button" href="/playlist/<%= @playlist_id %>">Cancel</a>
     </form>
   </div>
 </div>

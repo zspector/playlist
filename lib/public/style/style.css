@@ -1,9 +1,22 @@
 
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400);
 /** { outline: 1px solid red;}*/
-body{
+body {
   font-family: Lato:;
   font-weight: 100;
+}
+
+h2, h3 {
+  font-family: Lato;
+  font-weight: 300;
+}
+
+.cover-image {
+  margin-left: 6%;
+}
+
+.create-account {
+  float: right;
 }
 
 .topbar {
@@ -211,6 +224,10 @@ i.add-button:hover {
 
 .item-hover:hover {
   background: #F5F5F5;
+}
+
+.form-margin {
+  margin-top: 1.5%;
 }
 
 
