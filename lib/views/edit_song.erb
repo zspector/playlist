@@ -1,21 +1,24 @@
 <div class="row">
   <div class="small-6 large-6 small-centered large-centered columns form-margin">
-    <form method="post" action="/playlist/<%= @playlist_id %>/edit_song/<%= @song.id %>">
+    <form id="song-form" data-abide method="post" action="/playlist/<%= @playlist_id %>/edit_song/<%= @song.id %>">
         <div>
           <label for="song_title">Title: </label>
-          <input type="text" name="song_title" id="song_title" value="<%= @song.name %>">
+          <input type="text" required name="song_title" id="song_title" value="<%= @song.name %>">
         </div>
         <div>
           <label for="artitst">Artist: </label>
-          <input type="text" name="artist" id="artist" value="<%= @song.artist %>">
+          <input type="text" required name="artist" id="artist" value="<%= @song.artist %>">
         </div>
         <div>
           <label for="url">URL: </label>
-          <input type="text" name="url" id="url" value="<%= @song.url %>">
+          <input type="text" required name="url" id="url" value="<%= @song.url %>">
         </div>
         <button type="submit" id="submit-new-playlist">Edit</button>
-        <a href="http://www.youtube.com" class="button youtube-search" target="_blank">Search YouTube</a>
+        <div class="button get-videos" target="_blank">Get Videos</div>
+        <!-- <a href="http://www.youtube.com" class="button youtube-search" target="_blank">Search YouTube</a> -->
         <a class="button" href="/playlist/<%= @playlist_id %>">Cancel</a>
     </form>
+    <div class="song-fetch-list">
+    </div>
   </div>
 </div>
