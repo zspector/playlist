@@ -2,6 +2,7 @@ module PL
   class LogInUser < Command
     # inputs = { username: 'bob', password: 123}
     def run(inputs)
+      PL::SanitizeInput.run(inputs)
       # validate: user exists?
 
       user = PL.db.get_user_by_name(inputs[:name])

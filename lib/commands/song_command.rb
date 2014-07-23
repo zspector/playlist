@@ -15,6 +15,8 @@ module PL
     #   success(:playlists => playlists)
     # end
     def get(inputs)
+      PL::SanitizeInput.run(inputs)
+
       song = PL.db.get_song(inputs[:id])
       return failure(:song_does_not_exist) if song.nil?
 
@@ -23,6 +25,7 @@ module PL
 
     def add(inputs)
       # inputs = { playlist_id: 1, name: "song1", artist: "artist1", url: "www.song1.com" }
+      PL::SanitizeInput.run(inputs)
 
       playlist = PL.db.get_playlist(id: inputs[:playlist_id])
       return failure(:playlist_does_not_exist) if playlist.nil?
@@ -32,6 +35,7 @@ module PL
     end
 
     def delete(inputs)
+      PL::SanitizeInput.run(inputs)
       # inputs = {song_id: 1}
       # binding.pry
       song = PL.db.get_song(inputs[:id])

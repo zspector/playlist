@@ -4,6 +4,7 @@ module PL
     # inputs = { username: "user1",name: "playlist1"}
     # returns array of Playlist objects
     def run(inputs)
+      PL::SanitizeInput.run(inputs)
 
       user = PL.db.get_user_by_name(inputs[:username])
       # binding.pry

@@ -2,6 +2,7 @@ module PL
   class ModifyPlaylist < Command
 
     def get(inputs)
+      PL::SanitizeInput.run(inputs)
       playlist = PL.db.get_playlist_by_id(inputs[:id])
       return failure(:playlist_not_found) if playlist.nil?
 
@@ -9,6 +10,7 @@ module PL
     end
 
     def edit(inputs)
+      PL::SanitizeInput.run(inputs)
 
       user = PL.db.get_user_by_name(inputs[:username])
       return failure(:user_does_not_exist) if user.nil?
@@ -24,6 +26,7 @@ module PL
     end
 
     def delete(inputs)
+      PL::SanitizeInput.run(inputs)
 
       user = PL.db.get_user_by_name(inputs[:username])
       return failure(:user_does_not_exist) if user.nil?
