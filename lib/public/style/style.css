@@ -230,4 +230,29 @@ i.add-button:hover {
   margin-top: 1.5%;
 }
 
+/* Youtube fetch preview*/
+.video-title {
+  color: #008CBA;
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.video-duration {
+  font-weight: 300;
+}
+
+.video-views {
+  font-weight: 300;
+  font-style: italic;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+
+
+
+
 

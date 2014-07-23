@@ -1,12 +1,15 @@
 <div class="row">
   <div class="small-6 large-6 small-centered large-centered columns form-margin">
-    <form data-abide method="post" action="/playlist/<%= @playlist_id %>/add_song">
-        <input type="text" name="artist" id="artist" placeholder="Artist">
-        <input type="text" name="song_title" id="song_title" placeholder="Song title">
+    <form id="song-form" data-abide method="post" action="/playlist/<%= @playlist_id %>/add_song">
+        <input type="text" required name="artist" id="artist" placeholder="Artist">
+        <input type="text" required name="song_title" id="song_title" placeholder="Song title">
         <input type="url" required name="url" id="url" placeholder="Enter URL">
         <button type="submit" id="submit-new-playlist">Create</button>
         <a href="http://www.youtube.com/" class="button youtube-search" target="_blank">Search YouTube</a>
+        <div class="button get-videos" target="_blank">Get Videos</div>
         <a class="button" href="/playlist/<%= @playlist_id %>">Cancel</a>
     </form>
+    <div class="song-fetch-list">
+    </div>
   </div>
 </div>

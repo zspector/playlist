@@ -153,5 +153,12 @@ def get_handle_from_email(email)
 end
 
 def get_embed_code(url)
-  /[=](.*)/.match(url)[1]
+  # /[=](.*)/.match(url)[1]
+  # check for "&" first
+  result = /[=](.*)&/.match(url)
+  # if no match try again for standard url
+  result = /[=] (.*)/.match(url) unless result
+
+  return "invalid_input_url" unless result
+  return result[1]
 end
